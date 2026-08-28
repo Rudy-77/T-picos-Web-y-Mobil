@@ -1,4 +1,3 @@
-# Problemas de Diseño de Software
 
 ## Problema 1: App de mensajería tipo WhatsApp usando LoRa
 
