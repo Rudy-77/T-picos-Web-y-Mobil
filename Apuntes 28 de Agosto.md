@@ -19,7 +19,7 @@
 ### Patrón de diseño
 **Observer**, para que la app se entere y muestre el mensaje apenas llegue.
 
----
+
 
 ## Problema 2: Detección de espacios libres en un estacionamiento con cámaras de seguridad
 
