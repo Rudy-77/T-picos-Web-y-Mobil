@@ -1,0 +1,22 @@
+# Entornos virtuales de Python
+.venv/
+venv/
+
+# Caché de Python
+__pycache__/
+*.pyc
+
+# Archivos del sistema y del editor
+.DS_Store
+.vscode/
+.ipynb_checkpoints/
+.wtest
+
+# Modelo Random Forest (~50 MB): se regenera con entrenar_modelo.py
+modelo_bosque.joblib
+
+# Variables de entorno / secretos
+.env
+
+# Copia original del dataset del profesor (se trabaja en actividades/analisis-dataset/)
+actividades/dataset-medios/
