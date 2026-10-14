@@ -1,0 +1,61 @@
+(10000, 16)
+
+== Dominio por clima (% por fila) ==
+medio_recomendado  bicicleta  camioneta  dron  moto
+clima                                              
+despejado               32.8       16.6  13.5  37.1
+lluvia                   8.5       16.7   0.0  74.8
+viento_fuerte           31.7       18.4   0.0  49.9
+
+== Dominio por zona (% por fila) ==
+medio_recomendado  bicicleta  camioneta  dron  moto
+zona_destino                                       
+centro                  58.4       13.5   0.0  28.0
+periferia                0.9       14.0  12.6  72.5
+residencial             26.2       14.6  17.3  41.9
+rural                    0.0       40.8   0.0  59.2
+
+== Resumen por medio ==
+                  distancia_km               peso_kg               volumen_l               
+                           min median    max     min median    max       min median     max
+medio_recomendado                                                                          
+bicicleta                 0.37   3.42   7.00     0.1   1.76   7.99       0.3   7.78   39.70
+camioneta                 0.43   8.99  59.12     0.1   6.72  80.00       0.3  31.36  400.57
+dron                      2.07   9.54  14.99     0.1   1.04   2.50       0.3   4.29   11.98
+moto                      0.34  10.63  39.90     0.1   2.58  24.93       0.3  11.27   89.99
+
+== Etiquetas que rompen las reglas==
+Etiquetas imposibles 0
+Empty DataFrame
+Columns: [id_envio, medio_recomendado]
+Index: []
+
+== Distancia por zona ==
+                min  median    max
+zona_destino                      
+centro         0.34    2.79   5.91
+periferia      5.23   15.75  29.39
+residencial    1.06    6.98  14.80
+rural         15.93   34.20  59.12
+
+== Camionetas con distancia < 2 km ==
+Total: 107
+Con razón clara: 95
+Sin razón clara: 12
+      distancia_km  peso_kg  volumen_l  fragil  prioridad trafico          clima  valor_declarado_mxn
+228           0.98     0.84       2.26       0  mismo_dia    bajo      despejado               295.93
+1548          1.66     3.71      13.04       0    express   medio      despejado              1042.89
+2736          1.74     0.95       7.32       0     normal   medio         lluvia              1061.89
+3302          1.17     1.17       8.09       1    express    bajo         lluvia               380.71
+3425          1.95     2.00      14.41       0     normal    alto      despejado               300.61
+4962          1.53    19.72      60.55       1     normal    alto      despejado               364.46
+5593          1.95    24.45      48.11       1     normal    bajo         lluvia               129.18
+6797          1.34     6.51      13.14       0    express    alto  viento_fuerte               531.07
+6859          1.77     0.80       3.17       1    express    bajo      despejado              1643.56
+7208          1.71     0.61       3.06       1     normal    bajo      despejado               471.93
+     id_envio  distancia_km  peso_kg  largo_cm  ancho_cm  alto_cm  volumen_l  fragil  refrigerado  valor_declarado_mxn  prioridad zona_destino          clima  hora_salida trafico medio_recomendado
+0  ENV-000001          2.31     0.33      21.4       9.3      9.8       1.95       0            0              1576.04     normal  residencial      despejado           12    bajo         bicicleta
+1  ENV-000002         17.31     4.68      43.3      32.4     26.1      36.62       0            0              1243.86     normal    periferia      despejado           18    alto              moto
+2  ENV-000003          4.84     2.51      28.3      22.3     24.9      15.71       0            0               476.18     normal       centro  viento_fuerte           22   medio              moto
+3  ENV-000004         11.39     2.04      16.8      15.6     14.0       3.67       1            0              1794.53     normal  residencial      despejado           17    bajo              dron
+4  ENV-000005         46.95     3.68      33.7      20.3     13.4       9.17       1            0               525.31  mismo_dia        rural  viento_fuerte           17   medio         camioneta
