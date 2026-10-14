@@ -42,6 +42,6 @@ print("Con razón clara:", razon_clara.sum())
 print("Sin razón clara:", (~razon_clara).sum())
 
 sin_razon = cortas[~razon_clara]
-print(sin_razon[["distancia_km", "peso_kg", "volumen_l", "fragil", "prioridad", "trafico", "clima", "valor_declarado_mxn"]].head(10).to_string())
+print(sin_razon[["distancia_km", "peso_kg", "volumen_l", "fragil", "prioridad", "trafico", "clima", "valor_declarado_mxn"]].head(12).to_string())
 
 print(datos.head())
