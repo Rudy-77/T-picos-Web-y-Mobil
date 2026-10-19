@@ -300,73 +300,144 @@ Porcentaje de noche: 10.53 %
 ### Predicción
 
 - **¿Qué confusión será la más frecuente?**
-  - **Mi predicción:**
-  - **Por qué lo creo:**
+  - **Mi predicción:** creo que sería entre moto y bicicleta.
+  - **Por qué lo creo:** si el horario es normal y los kilómetros no son muchos, se pueden llegar a confundir una con otra.
 - **¿El modelo confundirá alguna vez una bicicleta con una camioneta?**
-  - **Mi predicción:**
-  - **Por qué lo creo:**
+  - **Mi predicción:** creo que no, aunque sí podría pasar al revés: que un envío de bicicleta lo mande en camioneta.
+  - **Por qué lo creo:** las métricas que menciona el README no hacen posible que un envío se mande en bicicleta cuando debería ir en camioneta.
 
 ### Resultado
 
 #### Errores del modelo sobre los 2 000 envíos de prueba
 
 ```text
-(pegar aquí el total de errores y la salida de groupby(["real", "predicho"]).size())
+Total de errores: 158
+real       predicho 
+moto       bicicleta    46
+camioneta  moto         32
+moto       dron         29
+bicicleta  moto         20
+dron       bicicleta    18
+camioneta  bicicleta     9
+           dron          4
 ```
 
 #### Moto que el modelo mandó a dron
 
 ```text
-(pegar aquí la salida)
+Moto mandada a dron: 29
+De noche: 26
+Dron imposible (las reglas lo corregirían): 26
+Dron posible (las reglas no lo corrigen): 3
+      distancia_km  peso_kg  volumen_l  fragil prioridad      clima  hora_salida trafico  valor_declarado_mxn
+2484          7.35     1.67       5.72       0   express  despejado 17    alto               388.86
+3722         12.14     0.90       3.68       0    normal  despejado 13    alto               455.58
+677           7.55     1.05       6.60       0    normal  despejado 18    alto               315.50
 ```
 
 #### Moto que el modelo mandó a bicicleta
 
 ```text
-(pegar aquí la salida)
+Moto mandada a bicicleta: 46
+count    46.00
+mean      4.08
+std       1.45
+min       1.35
+25%       2.80
+50%       3.88
+75%       5.30
+max       6.89
+
+                     moto->bici (error)  bici acertadas
+distancia_km                       4.08            3.55
+peso_kg                            2.37            2.16
+volumen_l                          9.96           10.13
+hora_salida                       12.98           12.84
+valor_declarado_mxn             1897.38         1854.89
+fragil                             0.35            0.29
+
+prioridad
+           moto->bici (error)  bici acertadas
+prioridad                                    
+express                  0.30            0.30
+mismo_dia                0.48            0.12
+normal                   0.22            0.58
+
+clima
+               moto->bici (error)  bici acertadas
+clima                                            
+despejado                    0.52            0.85
+lluvia                       0.24            0.02
+viento_fuerte                0.24            0.13
+
+trafico
+         moto->bici (error)  bici acertadas
+trafico                                    
+alto                   0.35            0.41
+medio                  0.33            0.30
+bajo                   0.33            0.29
+
+zona_destino
+              moto->bici (error)  bici acertadas
+zona_destino                                    
+centro                      0.57            0.64
+residencial                 0.41            0.35
+periferia                   0.02            0.01
+```
+
+#### Camioneta real que el modelo mandó a otro medio
+
+```text
+Camioneta real mal predicha: 45
+Refrigerados: 0
+Predicción imposible (las reglas lo corregirían): 3
+Predicción posible (las reglas no lo corrigen): 42
 ```
 
 ### Comparación
 
 | | Mi predicción | Resultado real | ¿Acerté? |
 |---|---|---|---|
-| Confusión más frecuente | | | |
-| ¿Bicicleta confundida con camioneta? | | | |
+| Confusión más frecuente | moto a bicicleta | moto a bicicleta (46) | Sí |
+| ¿Bicicleta confundida con camioneta? | No (camioneta → bicicleta); sí (bicicleta → camioneta) | 9 (camioneta → bicicleta); 0 (bicicleta → camioneta) | No |
 
-- **Qué me sorprendió o por qué fallé:**
+- **Qué me sorprendió o por qué fallé:** me sorprendió que sí se confunden camionetas con bicicletas, y en eso fue en lo que fallé. También que al revés (bicicleta → camioneta) no hubo ningún caso.
 
 ### Respuestas
 
 #### 3.1 — ¿Cuántos errores hay y cuáles son las tres confusiones más frecuentes? ¿Son entre medios parecidos o muy distintos? ¿Qué me dice eso?
 
-- **Total de errores:**
+- **Total de errores:** 158.
 - **Las tres confusiones más frecuentes:**
-  1.
-  2.
-  3.
-- **¿Medios parecidos o muy distintos?**
-- **Qué me dice eso:**
+  1. moto a bicicleta, con 46.
+  2. camioneta a moto, con 32.
+  3. moto a dron, con 29.
+- **¿Medios parecidos o muy distintos?** Son medios que sí se parecen, ya que son vecinos en capacidad, y la moto es el medio intermedio que aparece en casi todos los errores.
+- **Qué me dice eso:** que al modelo le faltan ejemplos y se podrían mejorar algunas reglas, aunque estos errores también se pueden deber al ruido.
 
 #### 3.2 — Envíos que eran moto y el modelo mandó a dron
 
-- **Cuántos son:**
-- **Cuántos son de noche:**
-- **Cuáles corregirían las reglas del negocio y cuáles no:**
-- **Qué tienen en común los que no se corrigen:**
+- **Cuántos son:** 29.
+- **Cuántos son de noche:** 26.
+- **Cuáles corregirían las reglas del negocio y cuáles no:** las 26 de noche serán corregidas, pero las otras 3 no.
+- **Qué tienen en común los que no se corrigen:** todos tienen tráfico alto y clima despejado, pasan los 7 km y son de la tarde.
 
 #### 3.3 — Envíos que eran moto y el modelo mandó a bicicleta
 
-- **¿Están cerca del límite de 7 km?**
-- **Qué columnas los distinguen de las bicicletas que el modelo sí acertó:**
+- **¿Están cerca del límite de 7 km?** No. La media es de 4.08 km y solo uno se acerca a los 7 km, con 6.89 km.
+- **Qué columnas los distinguen de las bicicletas que el modelo sí acertó:** las columnas categóricas, no las numéricas:
+  - **`prioridad`:** `mismo_dia` aparece en 48 % de los errores contra 12 % de las bicicletas acertadas, y `normal` en 22 % contra 58 %.
+  - **`clima`:** `lluvia` aparece en 24 % de los errores contra 2 % de las bicicletas acertadas.
+  - **Explicación (según el README):** en un envío de `mismo_dia` cada minuto pesa casi siete veces más, y la lluvia y el viento frenan a la bicicleta y a la moto. Entonces, aunque la bicicleta sea posible y barata, un envío urgente o con mal clima suele resolverse con una moto. El modelo se equivoca porque la decisión depende de combinar prioridad con clima, y esa combinación le cuesta aprenderla.
 
 #### 3.4 — ¿Qué pasaría con mi análisis si usara otro `random_state`?
 
-- **Respuesta:**
+- **Respuesta:** creo que cambiarían un poco los resultados, ya que los datos analizados serían diferentes, pero en esencia la base sería la misma y podría llegar a las mismas conclusiones. Además, el modelo ya habría visto algunos de esos datos al entrenar, por lo que la exactitud saldría inflada.
 
 ### Para pensar
 
 > Si solo pudieran arreglar un tipo de error, ¿cuál elegirían y por qué? ¿Lo arreglarían cambiando el modelo, los datos o las reglas del negocio?
 
-- **Error que arreglaría:**
-- **Por qué:**
-- **Cómo lo arreglaría (modelo, datos o reglas del negocio):**
+- **Error que arreglaría:** los envíos que eran moto y el modelo mandó a dron.
+- **Por qué:** porque 26 de los 29 son de noche, una hora en la que el dron no puede volar. Además es un error costoso, porque se sugeriría un medio que no puede operar.
+- **Cómo lo arreglaría (modelo, datos o reglas del negocio):** con las reglas del negocio. La función `es_posible` ya descarta al dron de noche, así que aplicarla sobre lo que sugiere el modelo corrige esos 26 casos sin tocar el modelo ni conseguir más datos, y funciona siempre.
