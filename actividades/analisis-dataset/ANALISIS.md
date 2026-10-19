@@ -92,7 +92,7 @@ Sin razón clara: 12
 8264          1.68     2.23       6.31       1    express    alto  viento_fuerte               673.66
 9491          1.20     1.33       9.96       0    express    alto         lluvia               475.32
 ```
-
+f
 ---
 
 ### Comparación
@@ -177,3 +177,196 @@ Sin razón clara: 12
 - **Reglas que no:** en mi opinión, las reglas de la camioneta, ya que con los datos no se alcanza el máximo de sus capacidades, por lo cual podríamos asumir cosas que no son en cuanto a los refrigerados, la distancia y el peso máximo.
 - **Riesgo de dejar que un modelo «descubra» las reglas en lugar de escribirlas a mano:** se puede omitir información importante y asumir que así debe ser por falta de datos, mientras que si se tienen las reglas bien definidas se cubren los casos como se planean.
 - **Mi postura:** yo creo que es mejor definir las reglas desde antes para poder obtener los resultados que esperamos, cubriendo los escenarios posibles como los planteamos y no adivinando.
+
+---
+
+## Actividad 2 — La hora y el dron
+
+### Predicción
+
+- **¿Cuántos drones salen a las 3:00?**
+  - **Mi predicción:** creo que no saldrán drones.
+  - **Por qué lo creo:** porque el dron no trabaja en esas horas ni durante la noche.
+- **¿Qué porcentaje de los envíos sale de noche (antes de las 6:00 o desde las 21:00)?**
+  - **Mi predicción:** creo que menos del 20 %.
+  - **Por qué lo creo:** porque el dron no vuela de noche, por lo que no saldrán pedidos de dron, y no es común que salgan bicicletas de noche.
+
+### Resultado
+
+#### Envíos por hora y medio
+
+```text
+medio_recomendado  bicicleta  camioneta  dron  moto
+hora_salida                                        
+0                          2         12     0    63
+1                          6         11     0    49
+2                          5         19     0    59
+3                          4         13     0    60
+4                          2         10     0    47
+5                          8         25     0   116
+6                         94         50    33   136
+7                        204         92    68   233
+8                        205        118    57   252
+9                        187         97    65   279
+10                       192        123    68   273
+11                       178        107    72   283
+12                       217        111    82   297
+13                       211        112    70   284
+14                       204        103    72   274
+15                       199        122    81   303
+16                       213        108    59   260
+17                       192         97    69   292
+18                       162         97    72   248
+19                       166         78    45   199
+20                       115         72    35   160
+21                        20         58     0   240
+22                         5         28     0   116
+23                         5         15     0    55
+```
+
+#### Porcentaje de envíos de noche
+
+```text
+Envíos de noche: 1053
+Envíos de día: 8947
+Porcentaje de noche: 10.53 %
+```
+
+#### Gráfica
+
+![Envíos por hora y medio](horas.png)
+
+### Comparación
+
+| | Mi predicción | Resultado real | ¿Acerté? |
+|---|---|---|---|
+| Drones a las 3:00 | 0 | 0 | Sí |
+| % de envíos de noche | < 20 % | 10.53 % | Sí |
+
+- **Qué me sorprendió o por qué fallé:** que las motos son el vehículo que más trabaja de noche y que las bicicletas casi desaparecen en esas horas.
+
+### Respuestas
+
+#### 2.1 — ¿En qué horas no hay ni un solo dron? ¿Coincide exactamente con la regla?
+
+- **Horas sin ningún dron:** 0, 1, 2, 3, 4, 5, 21, 22 y 23 h.
+- **¿Coincide con la regla (solo de 6:00 a 20:59)?** Sí, coincide con la regla del horario del dron.
+- **Explicación:** la regla solo permite que el dron trabaje en cierto horario, por lo que en las demás horas no hay ningún dron trabajando.
+
+#### 2.2 — ¿Cuántos envíos de noche hay comparados con los de día? ¿Qué consecuencia tiene para lo que el modelo puede aprender sobre la noche?
+
+- **Envíos de noche:** 1 053 envíos.
+- **Envíos de día:** 8 947 envíos.
+- **Consecuencia para el modelo:** el modelo tiene muy pocos ejemplos de la noche, por lo que le puede costar saber qué hacer en esas situaciones.
+
+#### 2.3 — Entre las 20:00 y las 21:00 las bicicletas casi desaparecen y las motos aumentan. ¿Qué lo explica según el README.md?
+
+- **Qué dice el README.md:** que la noche penaliza a las bicicletas, por lo que es normal que las motos se lleven los paquetes que deberían ser para bicicleta.
+- **Explicación con mis palabras:** las motos son una mejor opción de noche, por eso las bicicletas se ven muy reducidas.
+
+#### 2.4 — ¿Por qué a un árbol le cuesta representar «de noche»? ¿Cuántas preguntas sobre la hora necesitaría como mínimo?
+
+- **Por qué le cuesta:** porque la noche son dos tramos separados.
+- **Número mínimo de preguntas y cuáles serían:** creo que un mínimo de 2 preguntas:
+  1. ¿Hora ≥ 21?
+  2. ¿Hora ≤ 5?
+
+### Para pensar
+
+> Diseñen una columna nueva que le facilite al árbol entender la noche. Expliquen cómo la calcularían con las columnas existentes y cómo comprobarían, con un número, que de verdad ayudó.
+
+- **Nombre de la columna:** `es_noche`.
+- **Cómo la calcularía a partir de las columnas existentes:**
+
+  ```python
+  es_noche = ((datos["hora_salida"] <= 5) | (datos["hora_salida"] >= 21)).astype(int)
+  ```
+
+- **Por qué le ayuda al árbol:** porque el árbol necesita una sola pregunta (`¿es_noche = 1?`) en lugar de dos cortes sobre la hora.
+- **Cómo comprobaría con un número que ayudó:** entrenando el mismo árbol con y sin `es_noche`, con los mismos envíos de prueba (`random_state=42`), y comparando la exactitud.
+- **Resultado si lo implementé** (`actividad2_noche.py`):
+
+  | Modelo | Exactitud |
+  |---|---|
+  | Sin `es_noche` | 92.10 % |
+  | Con `es_noche` | 92.95 % |
+
+  Mejoró poco (+0.85 puntos), ya que el árbol ya diferenciaba bien la noche; la columna solo lo hizo más simple.
+
+---
+
+## Actividad 3 — Anatomía de los errores
+
+### Predicción
+
+- **¿Qué confusión será la más frecuente?**
+  - **Mi predicción:**
+  - **Por qué lo creo:**
+- **¿El modelo confundirá alguna vez una bicicleta con una camioneta?**
+  - **Mi predicción:**
+  - **Por qué lo creo:**
+
+### Resultado
+
+#### Errores del modelo sobre los 2 000 envíos de prueba
+
+```text
+(pegar aquí el total de errores y la salida de groupby(["real", "predicho"]).size())
+```
+
+#### Moto que el modelo mandó a dron
+
+```text
+(pegar aquí la salida)
+```
+
+#### Moto que el modelo mandó a bicicleta
+
+```text
+(pegar aquí la salida)
+```
+
+### Comparación
+
+| | Mi predicción | Resultado real | ¿Acerté? |
+|---|---|---|---|
+| Confusión más frecuente | | | |
+| ¿Bicicleta confundida con camioneta? | | | |
+
+- **Qué me sorprendió o por qué fallé:**
+
+### Respuestas
+
+#### 3.1 — ¿Cuántos errores hay y cuáles son las tres confusiones más frecuentes? ¿Son entre medios parecidos o muy distintos? ¿Qué me dice eso?
+
+- **Total de errores:**
+- **Las tres confusiones más frecuentes:**
+  1.
+  2.
+  3.
+- **¿Medios parecidos o muy distintos?**
+- **Qué me dice eso:**
+
+#### 3.2 — Envíos que eran moto y el modelo mandó a dron
+
+- **Cuántos son:**
+- **Cuántos son de noche:**
+- **Cuáles corregirían las reglas del negocio y cuáles no:**
+- **Qué tienen en común los que no se corrigen:**
+
+#### 3.3 — Envíos que eran moto y el modelo mandó a bicicleta
+
+- **¿Están cerca del límite de 7 km?**
+- **Qué columnas los distinguen de las bicicletas que el modelo sí acertó:**
+
+#### 3.4 — ¿Qué pasaría con mi análisis si usara otro `random_state`?
+
+- **Respuesta:**
+
+### Para pensar
+
+> Si solo pudieran arreglar un tipo de error, ¿cuál elegirían y por qué? ¿Lo arreglarían cambiando el modelo, los datos o las reglas del negocio?
+
+- **Error que arreglaría:**
+- **Por qué:**
+- **Cómo lo arreglaría (modelo, datos o reglas del negocio):**
