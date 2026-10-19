@@ -6,7 +6,7 @@ __pycache__/
 .vscode/
 .ipynb_checkpoints/
 .wtest
-modelo_bosque.joblib
+modelo_medios.joblib
 .env
 actividades/dataset-medios/
 actividades/analisis-dataset/envios_extra.csv
