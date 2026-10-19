@@ -441,3 +441,182 @@ Predicción posible (las reglas no lo corrigen): 42
 - **Error que arreglaría:** los envíos que eran moto y el modelo mandó a dron.
 - **Por qué:** porque 26 de los 29 son de noche, una hora en la que el dron no puede volar. Además es un error costoso, porque se sugeriría un medio que no puede operar.
 - **Cómo lo arreglaría (modelo, datos o reglas del negocio):** con las reglas del negocio. La función `es_posible` ya descarta al dron de noche, así que aplicarla sobre lo que sugiere el modelo corrige esos 26 casos sin tocar el modelo ni conseguir más datos, y funciona siempre.
+
+---
+
+## Actividad 4 — ¿Qué columnas usa de verdad el modelo?
+
+### Predicción
+
+- **Orden de las 14 columnas, de la más importante a la menos importante:**
+  1. `refrigerado`
+  2. `clima`
+  3. `distancia_km`
+  4. `alto_cm`
+  5. `volumen_l`
+  6. `fragil`
+  7. `prioridad`
+  8. `peso_kg`
+  9. `largo_cm`
+  10. `ancho_cm`
+  11. `hora_salida`
+  12. `zona_destino`
+  13. `trafico`
+  14. `valor_declarado_mxn`
+- **Columnas que creo que el modelo no usa:** `valor_declarado_mxn` y `zona_destino`.
+- **Por qué lo creo:** las reglas de los medios no usan el valor (solo lo penalizan en el costo) y la zona casi no importa porque ya se usa la distancia en km.
+
+### Resultado
+
+#### Importancia de cada columna
+
+```text
+distancia_km           32.20
+volumen_l              19.29
+clima                  14.38
+refrigerado            13.13
+peso_kg                12.63
+hora_salida             5.87
+fragil                  1.99
+prioridad               0.31
+valor_declarado_mxn     0.07
+ancho_cm                0.07
+largo_cm                0.03
+alto_cm                 0.03
+trafico                 0.02
+zona_destino            0.00
+```
+
+#### Exactitud al quitar cada columna
+
+```text
+Con todas las columnas: 92.1 %
+distancia_km          -12.80
+clima                  -7.65
+refrigerado            -4.25
+hora_salida            -3.00
+peso_kg                -1.70
+volumen_l              -1.50
+fragil                 -0.55
+largo_cm               -0.05
+ancho_cm               -0.05
+alto_cm                -0.05
+valor_declarado_mxn     0.00
+zona_destino            0.00
+trafico                 0.00
+prioridad               0.05
+```
+
+### Comparación
+
+| | Mi predicción | Resultado real | ¿Acerté? |
+|---|---|---|---|
+| Cuatro columnas más importantes | `clima`, `distancia_km`, `peso_kg`, `largo_cm` | `distancia_km`, `volumen_l`, `clima`, `refrigerado` | Parcial (2 de 4: `distancia_km` y `clima`) |
+| Columnas que el modelo no usa | `valor_declarado_mxn`, `zona_destino` | `zona_destino` (0.00 %) y `valor_declarado_mxn` (0.07 %); también casi no usa `trafico`, `largo_cm`, `ancho_cm` y `alto_cm` | Sí |
+
+- **Qué me sorprendió o por qué fallé:** fallé porque puse `refrigerado` al final y resultó la 4.ª más importante. Tampoco esperaba que `largo_cm`, `ancho_cm` y `alto_cm` casi no se usaran, pero tiene sentido: `volumen_l` ya resume las tres. Lo demás sí me lo imaginaba, así que no me sorprendió tanto; en general fallé en el orden.
+
+### Respuestas
+
+#### 4.1 — ¿Cuáles son las cuatro columnas más importantes? ¿Coinciden con las primeras preguntas del árbol y con mi predicción?
+
+- **Las cuatro columnas más importantes:**
+  1. `distancia_km` (32.20 %)
+  2. `volumen_l` (19.29 %)
+  3. `clima` (14.38 %)
+  4. `refrigerado` (13.13 %)
+- **¿Coinciden con las primeras preguntas del árbol del paso 8?** Sí coinciden.
+- **¿Coinciden con mi predicción?** No coinciden del todo: solo acerté en `distancia_km` y `clima`.
+
+#### 4.2 — ¿Qué columna, al quitarla, baja más la exactitud? ¿Cuáles no la cambian nada?
+
+- **Columna que más baja la exactitud:** `distancia_km`, con una baja de 12.8 puntos.
+- **Columnas que no la cambian:** `zona_destino`, `valor_declarado_mxn` y `trafico`.
+
+#### 4.3 — La zona de destino tiene importancia cero, pero el dron nunca va al centro. ¿Cómo puede ser?
+
+- **Respuesta:** creo que es por la regla de `es_posible`, que impide que el dron vaya al centro. El modelo no usa la zona, pero la plataforma aplica esa regla sobre lo que el modelo sugiere.
+
+### Para pensar
+
+> La app le pide a la persona catorce datos. Si el modelo no usa algunos, ¿deberían dejar de pedirlos? ¿Hay razones para pedir un dato que el modelo no usa?
+
+- **¿Dejaría de pedirlos?** No.
+- **Razones para pedir un dato que el modelo no usa:**
+  - Pueden servir para la documentación de la empresa.
+  - Las reglas del negocio sí los usan: `es_posible` necesita `zona_destino` para impedir el dron en el centro y la bicicleta en zona rural, aunque el modelo no la use.
+
+---
+
+## Actividad 5 — El dron es minoría: ¿hay que balancear el dataset?
+
+### Parte A — Pensar antes de tocar los datos
+
+#### A.1 — Exactitud de un «modelo» que nunca dice dron y de uno que siempre dice moto
+
+- **Exactitud si nunca dice dron:** 90.5 %. En la prueba hay 190 drones de 2000 envíos, así que acertaría los otros 1 810 sin predecir un solo dron.
+- **Exactitud si siempre dice moto:** 45.75 %. Hay 915 motos de 2000 envíos.
+- **Qué me dice eso sobre usar la exactitud:** que en un dataset desbalanceado la exactitud engaña. Un modelo que nunca recomienda dron saca 90.5 %, casi igual que nuestro árbol (92.1 %), y aun así sería inútil para la clase que nos interesa.
+- **Medidas que usaría en su lugar:** la `precision` y el `recall` del dron (y su `f1`), junto con la matriz de confusión del paso 7. El `recall` dice cuántos de los drones reales encontramos y la `precision` cuántas de las veces que dijimos dron era cierto.
+
+#### A.2 — ¿Por qué hay tan pocos drones? ¿Es un error de los datos o refleja cómo funciona la empresa? ¿Cambia la decisión de balancear?
+
+- **Respuesta:** no es un error de los datos, refleja cómo funciona la empresa. El dron solo se puede usar en pocas condiciones: paquetes de hasta 2.5 kg y 12 L, a 15 km o menos, con clima despejado, de 6:00 a 20:59 y fuera del centro. Por eso solo es el 9.5 % de los envíos. Sí cambia la decisión: si balanceo, el modelo verá más drones de los que existen en la realidad y puede empezar a sugerirlos cuando no corresponde, así que no es un defecto que haya que «corregir» a ciegas.
+
+#### A.3 — Si decido balancear, ¿antes o después de separar entrenamiento y prueba? ¿Se balancea también la prueba?
+
+- **¿Antes o después de separar?** Después de separar, y solo sobre los datos de entrenamiento.
+- **¿Se balancea la prueba?** No.
+- **Justificación:** si balanceo antes de separar (por ejemplo, repitiendo drones), las copias de un mismo envío pueden quedar una en entrenamiento y otra en prueba, y el modelo ya habría visto lo que se supone que no conoce, igual que pasaba con el `random_state` en la Actividad 3. Y la prueba debe reflejar la realidad (9.5 % de drones), porque ahí es donde se va a usar el modelo; si la balanceo, los números salen bonitos pero no representan lo que pasará en la plataforma.
+
+### Parte B — Probar estrategias
+
+> Todas se evalúan con los mismos 2 000 envíos de prueba (190 drones reales), usando la función `evaluar` de `actividad5.py`. Estrategia 3: `python ../dataset-medios/generar_dataset.py --filas 20000 --semilla 7 --salida envios_extra.csv`.
+
+| Estrategia | Envíos de entrenamiento | Exactitud | Precision dron | Recall dron | Veces que predice dron | Sugerencias imposibles |
+|---|---|---|---|---|---|---|
+| Sin balancear | 8 000 | 92.1 % | 0.839 | 0.905 | 205 | 31 |
+| 1. Quitar ejemplos de las clases que sobran | 3 032 | 89.0 % | 0.859 | 0.932 | 206 | 19 |
+| 2. Repetir ejemplos de la clase que falta | 14 652 | 90.6 % | 0.766 | 1.000 | 248 | 35 |
+| 3. Conseguir drones nuevos (generador) | 9 942 | 90.0 % | 0.722 | 1.000 | 263 | 56 |
+| 4. `class_weight="balanced"` | 8 000 | 90.2 % | 0.766 | 1.000 | 248 | 35 |
+
+#### Trampa a propósito (hacer lo contrario de A.3)
+
+- **Qué hice:** repetí ejemplos hasta igualar las cuatro clases en todo el dataset y solo después separé entrenamiento y prueba, de modo que la prueba también quedó balanceada (25 % de drones).
+- **Resultados:**
+
+  | Estrategia | Envíos de entrenamiento | Exactitud | Precision dron | Recall dron | Veces que predice dron | Sugerencias imposibles |
+  |---|---|---|---|---|---|---|
+  | TRAMPA: balancear antes de separar | 14 649 | 91.5 % | 0.897 | 0.975 | 996 | 65 |
+
+- **Por qué los números mejoran:** la precision del dron sube de 0.766 a 0.897 y el recall queda en 0.975. Hay dos razones. Primero, copias exactas de un mismo envío quedan una en entrenamiento y otra en prueba, así que el modelo «acierta» envíos que ya conocía. Segundo, la prueba ahora tiene 25 % de drones en lugar de 9.5 %, y la precision sube cuando los drones son más comunes.
+- **Por qué esa mejora es falsa:** porque no mide lo que pasará en la plataforma, donde solo el 9.5 % de los envíos son drones y los envíos son nuevos. Los números se ven mejor por haber contaminado la prueba, no porque el modelo sea mejor.
+
+### Parte C — Interpretar
+
+#### C.1 — ¿Qué pasó con el recall y con la precision del dron? ¿Por qué una sube cuando la otra baja?
+
+- **Respuesta:** el recall subió de 0.905 a 1.000 (las estrategias 2, 3 y 4 encuentran los 190 drones reales), pero la precision bajó de 0.839 a 0.766 (o hasta 0.722 en la estrategia 3). Sube una y baja la otra porque, al darle más peso al dron, el modelo se anima a decir dron con más facilidad: atrapa todos los reales, pero también marca como dron envíos que no lo eran. Predijo 248 drones contra 205 sin balancear: encontramos 18 drones más (de 172 a 190) a costa de 25 falsas alarmas más (de 33 a 58).
+
+#### C.2 — ¿Alguna estrategia dejó al modelo con muchos menos datos? ¿Qué se pierde?
+
+- **Respuesta:** sí, la estrategia 1 (quitar ejemplos) dejó solo 3 032 envíos de entrenamiento, menos de la mitad de los 8 000 originales. Se pierde información de la moto, la bicicleta y la camioneta, y por eso la exactitud bajó de 92.1 % a 89.0 %, la más baja de todas.
+
+#### C.3 — Si dos estrategias distintas dieron números casi iguales para el dron, ¿por qué son en el fondo la misma idea?
+
+- **Respuesta:** las estrategias 2 (repetir ejemplos) y 4 (`class_weight="balanced"`) dieron exactamente los mismos números para el dron (precision 0.766, recall 1.000, 248 predicciones). Son la misma idea porque repetir un dron varias veces equivale a que al árbol le cuente varias veces: en ambos casos cada dron pesa más en el entrenamiento, una vez cambiando los datos y otra cambiando el peso.
+
+#### C.4 — Después de balancear, ¿la «confianza 84 %» sigue significando lo mismo?
+
+- **Respuesta:** no. Esa confianza se calcula a partir de lo que el modelo vio al entrenar. Si entrenó con 25 % de drones (balanceado) y en la realidad solo hay 9.5 %, el porcentaje ya no representa la probabilidad real de que sea dron: el modelo está sobreestimando qué tan común es. Un «84 %» después de balancear no es lo mismo que un «84 %» sin balancear.
+
+### Parte D — Decidir
+
+> La empresa pregunta si debe usar el modelo balanceado en la plataforma.
+
+- **Mi recomendación:** no usar el modelo balanceado; quedarme con el modelo sin balancear y dejar que `es_posible` filtre lo imposible.
+- **¿Qué le cuesta más a la empresa: mandar un dron cuando no convenía o no usarlo cuando sí convenía?** Mandar un dron cuando no convenía es el error más costoso si además es imposible (clima, noche o centro), y esos los frena `es_posible`. No usar el dron cuando sí convenía solo pierde algo de eficiencia, porque la moto cubre el envío. En la práctica el balanceo cambió 18 drones encontrados por 25 falsas alarmas más, así que el beneficio es pequeño.
+- **¿Cuáles de esos errores corrigen las reglas del negocio y cuáles no?** Las reglas corrigen los imposibles (31 sin balancear; 35 con balanceo), porque no pasan `es_posible`. No corrigen las falsas alarmas donde el dron sí era posible pero no era lo más conveniente.
+- **¿Qué pasaría si mañana la empresa compra el doble de drones?** El dron se volvería más barato o más disponible y habría más envíos de dron en la realidad; el modelo, entrenado con el 9.5 % de hoy, quedaría desactualizado. Lo correcto no sería balancear a ciegas, sino volver a generar o recolectar datos con la nueva proporción y reentrenar.
+- **Razones:** el balanceo mejora el recall del dron, pero baja la exactitud (92.1 % a 90.2 % o menos), baja la precision y no reduce las sugerencias imposibles. El desbalance refleja las restricciones reales de la empresa y las reglas del negocio ya protegen contra lo peor, por lo que «no balancear» es una decisión defendible.

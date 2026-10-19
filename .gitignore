@@ -1,0 +1,12 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/
+.ipynb_checkpoints/
+.wtest
+modelo_bosque.joblib
+.env
+actividades/dataset-medios/
+actividades/analisis-dataset/envios_extra.csv
