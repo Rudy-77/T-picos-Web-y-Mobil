@@ -10,3 +10,5 @@ modelo_medios.joblib
 .env
 actividades/dataset-medios/
 actividades/analisis-dataset/envios_extra.csv
+actividades/dataset-medios2/
+actividades/plataforma-entregas/
