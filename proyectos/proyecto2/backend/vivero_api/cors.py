@@ -1,0 +1,35 @@
+"""CORS mínimo para que Flutter web (otro origen) pueda llamar a /api/ sin dependencias nuevas."""
+
+import re
+
+from django.conf import settings
+from django.http import HttpResponse
+
+ORIGEN_LOCAL = re.compile(r"^https?://(localhost|127\.0\.0\.1)(:\d+)?$")
+PREFIJO_API = "/api/"
+
+
+def origen_permitido(origen):
+    return bool(ORIGEN_LOCAL.match(origen)) or origen in settings.CORS_ORIGENES_EXTRA
+
+
+class CorsSimpleMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        origen = request.headers.get("Origin", "")
+        aplica = request.path.startswith(PREFIJO_API) and origen_permitido(origen)
+
+        # El navegador manda un OPTIONS (preflight) antes de un POST con JSON; lo respondo aquí.
+        if aplica and request.method == "OPTIONS":
+            respuesta = HttpResponse(status=204)
+        else:
+            respuesta = self.get_response(request)
+
+        if aplica:
+            respuesta["Access-Control-Allow-Origin"] = origen
+            respuesta["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
+            respuesta["Access-Control-Allow-Headers"] = "Content-Type"
+            respuesta["Vary"] = "Origin"
+        return respuesta

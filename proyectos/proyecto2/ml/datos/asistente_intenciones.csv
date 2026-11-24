@@ -1,0 +1,501 @@
+texto,intencion,nota
+"hola",saludo,corta
+"Hola!",saludo,corta
+"hola buenas",saludo,informal
+"buenas tardes",saludo,formal
+"buenos días",saludo,formal
+"buenas noches",saludo,formal
+"qué tal",saludo,informal
+"que onda",saludo,informal sin acentos
+"hey",saludo,corta
+"holi",saludo,informal
+"hola, ¿hay alguien?",saludo,informal
+"holaa",saludo,faltas
+"buen dia",saludo,sin acentos
+"buenas",saludo,corta
+"hola vivero",saludo,corta
+"saludos",saludo,formal
+"hola qué tal, buen día",saludo,informal
+"hola me pueden atender",saludo,sin signos
+"hola necesito ayuda",saludo,sin signos
+"¿hola? ¿me ayudas?",saludo,informal
+"qué onda bot",saludo,informal
+"buenas, una pregunta",saludo,informal
+"hola asistente",saludo,corta
+"hello",saludo,ingles
+"hi",saludo,ingles
+"ola",saludo,faltas
+"ola k ase",saludo,faltas
+"buenos dias, espero que esté bien",saludo,formal
+"muy buenas tardes",saludo,formal
+"hola, buenas noches",saludo,formal
+"buen día, ¿cómo están?",saludo,formal
+"qué hubo",saludo,informal
+"quiubo",saludo,informal
+"hola amigo",saludo,informal
+"hola, ¿cómo funciona esto?",saludo,pide menu
+"hola, ¿qué puedes hacer?",saludo,pide menu
+"¿en qué me puedes ayudar?",saludo,pide menu
+"¿qué sabes hacer?",saludo,pide menu
+"ayuda",saludo,pide menu
+"necesito ayuda",saludo,pide menu
+"hola quiero hacer una consulta",saludo,sin signos
+"saludos cordiales",saludo,formal
+"hola de nuevo",saludo,informal
+"otra vez yo, hola",saludo,informal
+"buenas, ¿está abierto?",saludo,informal
+"hey hola",saludo,informal
+"holis",saludo,informal
+"¿hay alguien ahí?",saludo,informal
+"hola!!",saludo,corta
+"buenas buenas",saludo,informal
+"gracias",despedida_gracias,corta
+"muchas gracias",despedida_gracias,formal
+"mil gracias",despedida_gracias,informal
+"gracias por la ayuda",despedida_gracias,formal
+"ok gracias",despedida_gracias,informal
+"adiós",despedida_gracias,corta
+"adios",despedida_gracias,sin acentos
+"bye",despedida_gracias,ingles
+"hasta luego",despedida_gracias,formal
+"nos vemos",despedida_gracias,informal
+"chao",despedida_gracias,informal
+"chau",despedida_gracias,informal
+"listo, gracias",despedida_gracias,informal
+"perfecto, gracias",despedida_gracias,informal
+"eso era todo",despedida_gracias,sin gracias
+"es todo, gracias",despedida_gracias,informal
+"gracias, muy amable",despedida_gracias,formal
+"te agradezco",despedida_gracias,formal
+"excelente, gracias",despedida_gracias,informal
+"super gracias",despedida_gracias,informal
+"grax",despedida_gracias,faltas
+"thx",despedida_gracias,ingles
+"gracias!!",despedida_gracias,corta
+"hasta pronto",despedida_gracias,formal
+"que tengas buen día",despedida_gracias,formal
+"buenas noches, gracias por todo",despedida_gracias,parecida a saludo
+"me sirvió mucho",despedida_gracias,sin gracias
+"muy útil, gracias",despedida_gracias,formal
+"ya quedó, gracias",despedida_gracias,informal
+"ok",despedida_gracias,corta
+"vale, gracias",despedida_gracias,informal
+"de acuerdo, gracias",despedida_gracias,formal
+"genial",despedida_gracias,corta
+"bien, eso es todo por hoy",despedida_gracias,sin gracias
+"gracias por todo, adiós",despedida_gracias,formal
+"me retiro, gracias",despedida_gracias,formal
+"ya me voy",despedida_gracias,sin gracias
+"nos vemos luego",despedida_gracias,informal
+"cuídate",despedida_gracias,informal
+"gracias bot",despedida_gracias,informal
+"ya no necesito nada",despedida_gracias,sin gracias
+"eso sería todo",despedida_gracias,formal
+"ok entendido gracias",despedida_gracias,sin signos
+"va, gracias",despedida_gracias,informal
+"listo",despedida_gracias,corta
+"¿dónde está mi pedido VIV-20261123-0001?",rastreo_folio,con folio
+"estado del pedido VIV-20261120-0003",rastreo_folio,con folio
+"quiero rastrear mi pedido",rastreo_folio,sin folio
+"rastrear pedido viv-20261118-0002",rastreo_folio,con folio minusculas
+"¿cómo va mi pedido?",rastreo_folio,sin folio
+"consulta de folio VIV-20261115-0004",rastreo_folio,con folio
+"mi folio es VIV-20261123-0002",rastreo_folio,con folio
+"tengo el folio viv 20261122 0001, ¿qué datos tiene?",rastreo_folio,con folio espacios
+"ya llegó mi pedido VIV202611210005?",rastreo_folio,con folio sin guiones
+"seguimiento de mi compra",rastreo_folio,sin folio
+"quiero ver mi pedido",rastreo_folio,sin folio
+"¿me puedes buscar el pedido VIV-20261119-0007?",rastreo_folio,con folio
+"buscar folio VIV-20261101-0010",rastreo_folio,con folio
+"info del pedido viv-20261110-0001",rastreo_folio,con folio informal
+"¿cuándo llega mi pedido VIV-20261123-0003?",rastreo_folio,con folio
+"¿cuántos días tarda mi pedido VIV-20261117-0002?",rastreo_folio,con folio
+"revisa mi pedido por favor",rastreo_folio,sin folio
+"VIV-20261123-0004",rastreo_folio,solo folio
+"viv-20261120-0001",rastreo_folio,solo folio minusculas
+"folio VIV-20261105-0006",rastreo_folio,con folio corta
+"checa el folio VIV-20261111-0003 porfa",rastreo_folio,con folio informal
+"mi numero de pedido es VIV 20261123 0005",rastreo_folio,con folio espacios sin acentos
+"quiero saber el estatus de mi orden",rastreo_folio,sin folio
+"estatus de la orden VIV-20261121-0002",rastreo_folio,con folio
+"¿en qué va mi envío?",rastreo_folio,sin folio
+"como va mi envio viv-20261119-0001",rastreo_folio,con folio sin acentos
+"¿ya salió mi pedido?",rastreo_folio,sin folio
+"¿mi pedido ya está registrado? folio VIV-20261123-0006",rastreo_folio,con folio
+"¿qué compré en el pedido VIV-20261116-0002?",rastreo_folio,con folio
+"¿qué producto tiene el folio VIV-20261118-0004?",rastreo_folio,con folio
+"datos de mi pedido",rastreo_folio,sin folio
+"detalles del pedido VIV-20261122-0003",rastreo_folio,con folio
+"dame la información de mi folio",rastreo_folio,sin folio
+"¿cuánto me va a costar el envío del pedido VIV-20261120-0002?",rastreo_folio,con folio costo guardado
+"¿qué empaque lleva mi pedido VIV-20261114-0001?",rastreo_folio,con folio plan guardado
+"consultar pedido",rastreo_folio,sin folio corta
+"quiero consultar un pedido",rastreo_folio,sin folio
+"tengo un folio y quiero ver el pedido",rastreo_folio,sin folio
+"no encuentro mi pedido",rastreo_folio,sin folio
+"perdí el seguimiento de mi pedido",rastreo_folio,sin folio
+"mi pedido no ha llegado",rastreo_folio,sin folio
+"hice un pedido ayer, ¿cómo lo veo?",rastreo_folio,sin folio
+"¿dónde reviso mi pedido?",rastreo_folio,sin folio
+"ver mi orden viv-20261123-0007",rastreo_folio,con folio
+"localizar pedido VIV-20261109-0002",rastreo_folio,con folio
+"hola, quiero saber de mi pedido VIV-20261123-0008",rastreo_folio,con folio y saludo
+"buenas tardes, ¿me ayudas con mi pedido VIV-20261120-0004?",rastreo_folio,con folio y saludo
+"mi pedido es el VIV-20261112-0003 y no sé nada de él",rastreo_folio,con folio larga
+"qué pasó con mi pedido",rastreo_folio,sin folio
+"¿se registró bien mi pedido VIV-20261123-0009?",rastreo_folio,con folio
+"¿qué envío lleva mi pedido VIV-20261121-0001?",rastreo_folio,con folio parecida a explicar
+"¿cuántas plantas pedí en el folio VIV-20261113-0002?",rastreo_folio,con folio
+"quiero revisar el estado de mi compra",rastreo_folio,sin folio
+"rastreo",rastreo_folio,corta
+"rastreo de pedido",rastreo_folio,corta
+"seguimiento VIV-20261123-0010",rastreo_folio,con folio
+"¿mi folio VIV-20261108-0001 existe?",rastreo_folio,con folio
+"busca este folio: viv202611200003",rastreo_folio,con folio sin guiones
+"pedido viv 20261119 0002",rastreo_folio,con folio espacios
+"el folio que me dieron es VIV-20261123-0011",rastreo_folio,con folio
+"estado de mi pedido por favor",rastreo_folio,sin folio
+"dime cómo va el pedido que hice",rastreo_folio,sin folio
+"¿cuándo me llegan mis plantas?",rastreo_folio,sin folio
+"¿ya enviaron mis plantas?",rastreo_folio,sin folio
+"¿cuándo hice el pedido VIV-20261110-0005?",rastreo_folio,con folio
+"mi paquete VIV-20261122-0002",rastreo_folio,con folio
+"¿qué fecha tiene mi pedido?",rastreo_folio,sin folio
+"consulta folio viv-20261123-0012",rastreo_folio,con folio
+"necesito información de la orden VIV-20261117-0003",rastreo_folio,con folio formal
+"¿podrías revisar el pedido VIV-20261123-0013?",rastreo_folio,con folio formal
+"traking de mi pedido",rastreo_folio,faltas
+"rastrar mi pedido",rastreo_folio,faltas
+"donde esta mi pedido",rastreo_folio,sin acentos
+"¿por qué me salió protegido?",explicar_recomendacion,sin folio
+"¿por qué me recomendaron envío térmico?",explicar_recomendacion,sin folio
+"por que me salio humedad",explicar_recomendacion,sin acentos
+"¿por qué mi pedido VIV-20261123-0001 va en caja protegida?",explicar_recomendacion,con folio
+"¿por qué el sistema eligió estándar para mi pedido?",explicar_recomendacion,sin folio
+"explícame la recomendación del pedido VIV-20261120-0003",explicar_recomendacion,con folio
+"no entiendo por qué me tocó envío térmico",explicar_recomendacion,sin folio
+"¿por qué no me dieron envío estándar?",explicar_recomendacion,sin folio
+"¿por qué se descartó el envío de humedad?",explicar_recomendacion,sin folio
+"¿por qué las reglas corrigieron mi envío?",explicar_recomendacion,sin folio
+"¿qué significa corregido por las reglas?",explicar_recomendacion,sin folio
+"el modelo quería humedad pero me salió protegido, ¿por qué?",explicar_recomendacion,larga
+"¿por qué me cambiaron el envío?",explicar_recomendacion,sin folio
+"¿qué tan seguro estaba el modelo con mi pedido VIV-20261118-0002?",explicar_recomendacion,con folio
+"¿qué confianza tuvo la recomendación?",explicar_recomendacion,sin folio
+"explica por qué salió térmico en el folio VIV-20261115-0004",explicar_recomendacion,con folio
+"¿por qué mi envío es tan caro?",explicar_recomendacion,sin folio
+"¿por qué me recomendaron ese empaque?",explicar_recomendacion,sin folio
+"¿por qué el sistema descartó la caja estándar?",explicar_recomendacion,sin folio
+"justifica la recomendación de mi pedido",explicar_recomendacion,formal
+"¿en qué se basó la recomendación?",explicar_recomendacion,formal
+"¿cómo decidió el sistema mi envío?",explicar_recomendacion,sin folio
+"¿cómo se decidió el envío de mi pedido VIV-20261122-0001?",explicar_recomendacion,con folio
+"¿qué envío prefería el modelo?",explicar_recomendacion,sin folio
+"¿qué hubiera elegido el modelo sin las reglas?",explicar_recomendacion,sin folio
+"¿por qué no se pudo mandar en humedad?",explicar_recomendacion,sin folio
+"mi planta es suculenta, ¿por qué no me dieron humedad?",explicar_recomendacion,larga
+"¿por qué me salio termico si no hace frio?",explicar_recomendacion,sin acentos
+"por que protegido y no estandar",explicar_recomendacion,sin acentos
+"porque me salio protegido",explicar_recomendacion,faltas
+"xq me salió térmico",explicar_recomendacion,faltas
+"¿por qué ese resultado?",explicar_recomendacion,corta
+"no estoy de acuerdo con la recomendación, ¿por qué salió así?",explicar_recomendacion,larga
+"¿qué motivo tiene la recomendación del folio VIV-20261121-0002?",explicar_recomendacion,con folio
+"dime el motivo del envío de mi pedido",explicar_recomendacion,sin folio
+"¿por qué me sale que se descartó el térmico?",explicar_recomendacion,sin folio
+"¿qué reglas se aplicaron a mi pedido?",explicar_recomendacion,sin folio
+"¿qué reglas se aplicaron al folio VIV-20261119-0005?",explicar_recomendacion,con folio
+"¿por qué el riego sugerido dice eso?",explicar_recomendacion,sin folio
+"explicación del resultado",explicar_recomendacion,corta
+"quiero entender mi recomendación",explicar_recomendacion,sin folio
+"¿me explicas el resultado de mi envío?",explicar_recomendacion,sin folio
+"¿por qué el envío de mi helecho es de humedad?",explicar_recomendacion,sin folio
+"¿por qué a mi suculenta la mandan en caja protegida?",explicar_recomendacion,sin folio
+"¿por qué me tocó caja reforzada?",explicar_recomendacion,sin folio
+"¿por qué me pusieron caja de unicel?",explicar_recomendacion,sin folio
+"¿por qué recomendaron gel térmico para mi pedido?",explicar_recomendacion,sin folio
+"¿por qué me salió protegido en el pedido VIV-20261123-0002?",explicar_recomendacion,con folio
+"¿por qué humedad? folio viv-20261120-0005",explicar_recomendacion,con folio minusculas
+"VIV-20261117-0001 ¿por qué térmico?",explicar_recomendacion,folio al inicio
+"¿qué significa la confianza del 62 %?",explicar_recomendacion,sin folio
+"¿por qué dice confianza baja?",explicar_recomendacion,sin folio
+"¿por qué se descartaron dos envíos?",explicar_recomendacion,sin folio
+"¿cuáles envíos se descartaron y por qué?",explicar_recomendacion,sin folio
+"¿qué envíos descartaron en mi pedido VIV-20261116-0003?",explicar_recomendacion,con folio
+"¿por qué el modelo cambió de opinión?",explicar_recomendacion,sin folio
+"¿quién decidió mi envío, el modelo o las reglas?",explicar_recomendacion,sin folio
+"¿la recomendación de mi pedido la hizo una IA?",explicar_recomendacion,sin folio
+"explicame porque salio asi mi envio",explicar_recomendacion,sin acentos faltas
+"¿me puedes decir por qué salió ese envío?",explicar_recomendacion,formal
+"¿por qué me salió eso?",explicar_recomendacion,corta
+"¿por qué ese tipo de envío para mis plantas?",explicar_recomendacion,sin folio
+"¿por qué no me tocó el envío más barato?",explicar_recomendacion,sin folio
+"¿qué datos usó el sistema para decidir mi envío?",explicar_recomendacion,sin folio
+"¿por qué en mi pedido dice que no había opción válida?",explicar_recomendacion,sin folio
+"¿por qué me salió respaldo térmico?",explicar_recomendacion,sin folio
+"razón del envío recomendado",explicar_recomendacion,corta
+"¿por qué fue corregida la recomendación del folio VIV-20261123-0014?",explicar_recomendacion,con folio
+"el pedido VIV-20261118-0006 salió humedad y no entiendo",explicar_recomendacion,con folio
+"¿qué fue lo que descartaron las reglas?",explicar_recomendacion,sin folio
+"¿tienen helechos?",buscar_producto,corta
+"busco suculentas",buscar_producto,corta
+"¿venden macetas?",buscar_producto,corta
+"quiero comprar un limonero",buscar_producto,producto
+"¿tienen aguacate?",buscar_producto,producto
+"¿qué plantas tienen?",buscar_producto,general
+"muéstrame el catálogo",buscar_producto,general
+"¿qué productos venden?",buscar_producto,general
+"busco una planta para poca luz",buscar_producto,caracteristica
+"algo para poca luz",buscar_producto,caracteristica
+"¿tienen plantas de interior?",buscar_producto,tipo
+"¿qué plantas de exterior tienen?",buscar_producto,tipo
+"¿venden fertilizante?",buscar_producto,categoria
+"¿tienen sustrato para cactus?",buscar_producto,categoria
+"quiero tierra para macetas",buscar_producto,categoria
+"¿hay monstera?",buscar_producto,producto
+"busco una monstera deliciosa",buscar_producto,producto
+"¿tienen pothos?",buscar_producto,producto
+"¿cuánto cuesta la lavanda?",buscar_producto,precio
+"precio del ficus",buscar_producto,precio
+"¿cuánto cuesta el helecho de Boston?",buscar_producto,precio
+"¿hay lechuga?",buscar_producto,producto
+"¿venden plántulas de jitomate?",buscar_producto,producto
+"¿tienen hortalizas?",buscar_producto,tipo
+"busco plantas frutales",buscar_producto,tipo
+"¿tienen árboles frutales?",buscar_producto,tipo
+"¿qué cítricos tienen?",buscar_producto,tipo
+"¿venden rosales?",buscar_producto,producto
+"¿tienen aloe vera?",buscar_producto,producto
+"quiero una echeveria",buscar_producto,producto
+"¿hay haworthia?",buscar_producto,producto
+"¿tienen calathea?",buscar_producto,producto
+"¿tienen macetas de barro?",buscar_producto,producto
+"¿venden macetas autorregables?",buscar_producto,producto
+"¿hay stock de limonero?",buscar_producto,existencia
+"¿les quedan monsteras?",buscar_producto,existencia
+"¿tienen abono orgánico?",buscar_producto,categoria
+"humus de lombriz",buscar_producto,corta
+"busco algo para regalar",buscar_producto,general
+"¿qué planta me recomiendas para mi departamento?",buscar_producto,parecida a recomendar
+"quiero una planta fácil de cuidar",buscar_producto,caracteristica
+"¿qué planta aguanta el sol?",buscar_producto,caracteristica
+"planta que no necesite mucha agua",buscar_producto,caracteristica
+"¿tienen plantas colgantes?",buscar_producto,caracteristica
+"¿qué suculentas venden?",buscar_producto,tipo
+"ver productos",buscar_producto,corta
+"lista de productos",buscar_producto,corta
+"catálogo",buscar_producto,corta
+"productos disponibles",buscar_producto,corta
+"¿tienen plantas medicinales?",buscar_producto,caracteristica
+"plantas aromáticas",buscar_producto,caracteristica
+"¿venden semillas?",buscar_producto,no hay en catalogo
+"¿tienen orquídeas?",buscar_producto,no hay en catalogo
+"busco cactus",buscar_producto,corta
+"¿hay bonsáis?",buscar_producto,no hay en catalogo
+"kiero una suculenta",buscar_producto,faltas
+"tienen elechos",buscar_producto,faltas
+"macetas grandes",buscar_producto,corta
+"¿tienen algo para cítricos?",buscar_producto,categoria
+"fertilizante para limonero",buscar_producto,categoria
+"¿qué plantas de sombra tienen?",buscar_producto,caracteristica
+"busco una planta grande para sala",buscar_producto,caracteristica
+"¿cuál es la planta más barata?",buscar_producto,precio
+"¿tienen plantas pequeñas?",buscar_producto,caracteristica
+"¿qué tipos de plantas manejan?",buscar_producto,general
+"quiero ver las plantas de interior",buscar_producto,tipo
+"¿tienen tierra preparada?",buscar_producto,producto
+"mezcla para suculentas",buscar_producto,corta
+"¿hay algo para huerto en casa?",buscar_producto,caracteristica
+"quiero empezar un huerto",buscar_producto,caracteristica
+"¿tienen ficus?",buscar_producto,producto
+"precio de las macetas",buscar_producto,precio
+"¿cómo conviene mandar esta planta?",recomendar_envio,general
+"¿qué envío me recomiendas para un helecho?",recomendar_envio,planta
+"quiero enviar una planta, ¿qué envío uso?",recomendar_envio,general
+"¿cómo mando un cactus a Monterrey?",recomendar_envio,destino
+"¿qué empaque necesito para mandar un limonero?",recomendar_envio,planta
+"recomiéndame un envío",recomendar_envio,corta
+"¿cuál es el mejor envío para mis plantas?",recomendar_envio,general
+"voy a mandar 3 suculentas a un lugar frío, ¿qué envío elijo?",recomendar_envio,larga
+"¿me conviene el envío térmico para mandar a Mexicali en verano?",recomendar_envio,destino
+"quiero cotizar un envío",recomendar_envio,cotizar
+"cotización de envío",recomendar_envio,corta
+"calcula el envío de mi planta",recomendar_envio,cotizar
+"¿cuánto cuesta enviar una planta?",recomendar_envio,cotizar
+"necesito mandar un árbol frutal de 1.5 m",recomendar_envio,planta
+"¿en qué caja mando un bonsái?",recomendar_envio,planta
+"quiero hacer un pedido",recomendar_envio,pedido nuevo
+"quiero registrar un envío",recomendar_envio,pedido nuevo
+"dime qué envío elegir",recomendar_envio,general
+"elige el envío por mí",recomendar_envio,pide decision
+"¿qué envío le pongo a mi pedido?",recomendar_envio,general
+"¿cómo envío plantas a zona rural?",recomendar_envio,destino
+"mandaré una calathea por paquetería, ¿qué me sugieres?",recomendar_envio,planta
+"¿qué envío es mejor para 10 hortalizas?",recomendar_envio,planta
+"tengo que enviar un helecho grande en invierno",recomendar_envio,sin signos
+"¿conviene caja protegida o térmica para mi bugambilia?",recomendar_envio,pide decision
+"¿qué tipo de envío necesito?",recomendar_envio,general
+"necesito una recomendación de envío",recomendar_envio,general
+"recomendar envío",recomendar_envio,corta
+"nuevo envío",recomendar_envio,corta
+"iniciar un envío",recomendar_envio,corta
+"quiero mandar plantas a otra ciudad",recomendar_envio,destino
+"¿cómo empaco mi planta para enviarla?",recomendar_envio,empaque
+"¿qué envío para una planta frágil?",recomendar_envio,planta
+"envío para planta de 2 metros",recomendar_envio,corta
+"cual envio me conviene",recomendar_envio,sin acentos
+"k envio uso pa mandar un cactus",recomendar_envio,faltas
+"¿me ayudas a escoger el envío?",recomendar_envio,general
+"quiero saber qué envío le toca a mi planta",recomendar_envio,general
+"voy a regalar una planta a mi mamá en Puebla, ¿cómo la mando?",recomendar_envio,larga
+"¿qué envío para mandar en verano a Hermosillo?",recomendar_envio,destino
+"¿qué envío uso si tarda 4 días?",recomendar_envio,transito
+"¿cómo mando plantas con calor de 40 grados?",recomendar_envio,clima
+"¿cuál envío para suculentas a la playa?",recomendar_envio,destino
+"¿qué opción de envío me sale para un frutal?",recomendar_envio,planta
+"necesito mandar plantas express",recomendar_envio,prioridad
+"quiero que el sistema me diga cómo enviar",recomendar_envio,general
+"simula un envío",recomendar_envio,corta
+"hazme una recomendación para enviar un helecho",recomendar_envio,planta
+"¿qué envío usarías para mi planta?",recomendar_envio,pide decision
+"¿cómo se debe enviar un rosal?",recomendar_envio,planta
+"¿qué envío recomiendan para plantas de interior?",recomendar_envio,planta
+"estoy por comprar una planta, ¿cómo me la mandan?",recomendar_envio,larga
+"¿me pueden mandar la planta en caja térmica?",recomendar_envio,pide envio concreto
+"¿qué envío necesito para Chihuahua en invierno?",recomendar_envio,destino
+"quiero calcular el envío de 5 macetas",recomendar_envio,cotizar
+"¿cómo envío una planta delicada?",recomendar_envio,planta
+"¿cómo mandar plantas sin que se maltraten?",recomendar_envio,general
+"decide tú el envío de mi monstera",recomendar_envio,pide decision
+"¿qué envío le damos a un ficus de metro y medio?",recomendar_envio,planta
+"¿qué diferencia hay entre protegido y humedad?",info_envios,comparar
+"¿qué tipos de envío tienen?",info_envios,general
+"¿qué es el envío térmico?",info_envios,definicion
+"¿qué incluye el envío protegido?",info_envios,definicion
+"¿en qué consiste el envío de humedad?",info_envios,definicion
+"¿qué es el envío estándar?",info_envios,definicion
+"explícame los tipos de envío",info_envios,general
+"¿cuántos tipos de envío manejan?",info_envios,general
+"¿qué opciones de envío hay?",info_envios,general
+"¿qué empaque usa el envío térmico?",info_envios,empaque
+"¿qué lleva la caja protegida?",info_envios,empaque
+"¿cuál es la diferencia entre estándar y protegido?",info_envios,comparar
+"¿el envío de humedad sirve para suculentas?",info_envios,regla
+"¿hasta cuántos días aguanta el envío estándar?",info_envios,regla
+"¿cuál es la temperatura mínima del envío estándar?",info_envios,regla
+"¿el envío térmico tiene límite de días?",info_envios,regla
+"¿qué altura máxima acepta el envío de humedad?",info_envios,regla
+"¿por qué las suculentas no van en humedad?",info_envios,regla parecida a explicar
+"¿una planta a raíz desnuda puede ir en caja estándar?",info_envios,regla
+"¿qué reglas tiene cada envío?",info_envios,regla
+"¿cuáles son las reglas de envío?",info_envios,regla
+"¿qué restricciones tienen los envíos?",info_envios,regla
+"¿cuál envío es el más barato?",info_envios,costo
+"¿cuál es el envío más caro?",info_envios,costo
+"¿qué envío protege del frío?",info_envios,clima
+"¿qué envío protege del calor?",info_envios,clima
+"¿para qué sirve el gel térmico?",info_envios,empaque
+"¿qué es raíz desnuda?",info_envios,definicion
+"info de envíos",info_envios,corta
+"información sobre los envíos",info_envios,corta
+"tipos de envio",info_envios,sin acentos
+"diferencias entre envíos",info_envios,comparar
+"¿el envío protegido es para plantas frágiles?",info_envios,definicion
+"¿qué significa envío con humedad?",info_envios,definicion
+"¿cuánto cuesta cada tipo de envío?",info_envios,costo
+"¿cómo se calcula el costo del envío?",info_envios,costo
+"¿por qué el térmico es más caro?",info_envios,costo parecida a explicar
+"¿el envío express cuesta más?",info_envios,costo
+"¿qué pasa si mando express?",info_envios,costo
+"¿qué es el envío de respaldo?",info_envios,definicion
+"¿qué valor mínimo necesita el envío térmico?",info_envios,regla
+"¿qué envíos hay para clima frío?",info_envios,clima
+"¿los envíos incluyen indicaciones de riego?",info_envios,riego
+"¿qué es el riego sugerido?",info_envios,riego
+"¿la caja estándar tiene separadores?",info_envios,empaque
+"¿el envío de humedad lleva musgo?",info_envios,empaque
+"quiero conocer los envíos",info_envios,general
+"¿cómo funcionan los envíos?",info_envios,general
+"¿me explicas qué es cada envío?",info_envios,general
+"diferencia termico vs protegido",info_envios,sin acentos
+"q es envio humedad",info_envios,faltas
+"¿qué límite de temperatura tiene el protegido?",info_envios,regla
+"¿cuántos días máximo a raíz desnuda en protegido?",info_envios,regla
+"¿manejan envío refrigerado?",info_envios,definicion
+"¿qué envío lleva unicel?",info_envios,empaque
+"¿el envío estándar sirve para todo tipo de planta?",info_envios,regla
+"cuéntame de los envíos del vivero",info_envios,general
+"¿hay envío especial para plantas delicadas?",info_envios,parecida a recomendar
+"lista de envíos disponibles",info_envios,general
+"¿qué hace diferente al envío térmico?",info_envios,comparar
+"¿qué clima hará mañana?",no_se,fuera de tema
+"¿quién ganó el partido de ayer?",no_se,fuera de tema
+"¿cuánto es 25 por 4?",no_se,fuera de tema
+"cuéntame un chiste",no_se,fuera de tema
+"¿cuál es la capital de Francia?",no_se,fuera de tema
+"¿me ayudas con mi tarea de cálculo?",no_se,fuera de tema
+"¿qué hora es?",no_se,fuera de tema
+"pon música",no_se,fuera de tema
+"¿cómo hago un pastel?",no_se,fuera de tema
+"¿quién es el presidente de México?",no_se,fuera de tema
+"recomiéndame una película",no_se,fuera de tema
+"¿cuánto está el dólar?",no_se,fuera de tema
+"¿cómo programo en Python?",no_se,fuera de tema
+"¿me prestas dinero?",no_se,fuera de tema
+"escribe un poema",no_se,fuera de tema
+"¿tienes novia?",no_se,fuera de tema
+"¿eres humano?",no_se,fuera de tema
+"asdfgh",no_se,ruido
+"???",no_se,ruido
+"jajaja",no_se,ruido
+"mmm",no_se,ruido
+"no sé",no_se,ambigua
+"eh",no_se,ruido
+"cosa",no_se,ambigua
+"lo de ayer",no_se,ambigua
+"lo mismo de siempre",no_se,ambigua
+"¿y eso?",no_se,ambigua
+"¿qué opinas de la política?",no_se,fuera de tema
+"¿cómo arreglo mi computadora?",no_se,fuera de tema
+"¿dónde queda el banco más cercano?",no_se,fuera de tema
+"¿cuál es el sentido de la vida?",no_se,fuera de tema
+"traduce hello al español",no_se,fuera de tema
+"¿cuántos años tienes?",no_se,fuera de tema
+"¿qué día es hoy?",no_se,fuera de tema
+"háblame de dinosaurios",no_se,fuera de tema
+"¿cómo bajo de peso?",no_se,fuera de tema
+"dame una receta de mole",no_se,fuera de tema
+"¿me puedes hackear una cuenta?",no_se,fuera de tema
+"¿quién ganó el mundial?",no_se,fuera de tema
+"¿cómo se resuelve una ecuación de segundo grado?",no_se,fuera de tema
+"¿qué es la fotosíntesis?",no_se,tema cercano sin datos
+"¿cuántos planetas hay?",no_se,fuera de tema
+"¿cómo me registro en Facebook?",no_se,fuera de tema
+"quiero cancelar mi tarjeta de crédito",no_se,fuera de tema
+"¿dónde puedo estudiar ingeniería?",no_se,fuera de tema
+"¿cómo cambio mi contraseña del correo?",no_se,fuera de tema
+"¿cuánto cuesta un coche?",no_se,fuera de tema
+"¿mañana llueve en Monterrey?",no_se,fuera de tema
+"habla en inglés",no_se,fuera de tema
+"¿cuál es tu color favorito?",no_se,fuera de tema
+"dime algo interesante",no_se,fuera de tema
+"estoy aburrido",no_se,fuera de tema
+"¿me recomiendas un restaurante?",no_se,fuera de tema
+"¿qué series hay en Netflix?",no_se,fuera de tema
+"haz mi tarea",no_se,fuera de tema
+"¿cómo se juega ajedrez?",no_se,fuera de tema
+"1234",no_se,ruido
+"ok y",no_se,ambigua
+"no entiendo",no_se,ambigua
+"otra cosa",no_se,ambigua
+"quiero hablar con un humano",no_se,sin datos en el sistema
+"quiero poner una queja",no_se,sin datos en el sistema
+"¿aceptan pagos con tarjeta?",no_se,sin datos en el sistema
+"¿tienen tienda física?",no_se,sin datos en el sistema
+"¿cuál es su horario?",no_se,sin datos en el sistema
+"¿hacen descuentos?",no_se,sin datos en el sistema
+"¿puedo devolver una planta?",no_se,sin datos en el sistema
+"mi planta tiene plaga, ¿qué hago?",no_se,cuidado sin corpus
+"¿cada cuánto riego un cactus?",no_se,cuidado sin corpus
+"¿cómo está el tráfico en el centro?",no_se,fuera de tema
+"¿me arreglas la impresora?",no_se,fuera de tema

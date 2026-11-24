@@ -1,0 +1,63 @@
+{
+  "descripcion": "Ficus (interior_tropical) de 150 cm a 320 km, 3 días de tránsito. El modelo aprendió que las plantas tropicales con 3 días o más van en empaque de humedad (el etiquetador no mira la altura), pero la regla de humedad admite hasta 120 cm, así que las reglas descartan humedad y eligen la siguiente opción posible.",
+  "entrada": {
+    "distancia_km": 320.0,
+    "peso_kg": 8.5,
+    "altura_cm": 150.0,
+    "diametro_maceta_cm": 30.0,
+    "cantidad_plantas": 1,
+    "valor_declarado_mxn": 950.0,
+    "temperatura_destino_c": 22.0,
+    "dias_en_transito": 3,
+    "fragil": 0,
+    "raiz_desnuda": 0,
+    "tipo_planta": "interior_tropical",
+    "epoca": "primavera",
+    "prioridad": "normal",
+    "zona_destino": "periferia"
+  },
+  "resultado_esperado": {
+    "envio": "termico",
+    "confianza": 0.013,
+    "preferido_por_modelo": "humedad",
+    "corregido_por_reglas": true,
+    "motivo": "árbol de decisión, confianza 1%; se descartó humedad porque la planta mide 150.0 cm y el empaque admite hasta 120 cm",
+    "ranking": [
+      {
+        "envio": "humedad",
+        "probabilidad": 0.973,
+        "posible": false
+      },
+      {
+        "envio": "termico",
+        "probabilidad": 0.013,
+        "posible": true
+      },
+      {
+        "envio": "estandar",
+        "probabilidad": 0.007,
+        "posible": true
+      },
+      {
+        "envio": "protegido",
+        "probabilidad": 0.007,
+        "posible": true
+      }
+    ],
+    "descartados": [
+      {
+        "envio": "humedad",
+        "motivo": "la planta mide 150.0 cm y el empaque admite hasta 120 cm"
+      }
+    ],
+    "sin_opcion_valida": false,
+    "plan": {
+      "envio": "termico",
+      "empaque": "caja de unicel con gel térmico",
+      "dias": 3,
+      "costo_estimado_mxn": 442.0,
+      "indicacion": "caja aislada: mantener la temperatura estable durante el tránsito",
+      "riego_sugerido": "Regar 24 h antes de empacar; al llegar, rociar las hojas y regar si el sustrato está seco."
+    }
+  }
+}
