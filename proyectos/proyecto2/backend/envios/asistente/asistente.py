@@ -17,10 +17,17 @@ PALABRAS_VACIAS = {
     "necesito", "una", "un", "unos", "unas", "el", "la", "los", "las", "de", "del", "para", "por",
     "con", "sin", "que", "qué", "me", "mi", "mis", "algo", "alguna", "algun", "cual", "cuál",
     "cuanto", "cuánto", "cuesta", "precio", "stock", "ver", "muestrame", "muéstrame", "lista",
-    "planta", "plantas", "producto", "productos", "catalogo", "catálogo", "disponibles", "disponible",
+    "producto", "productos", "catalogo", "catálogo", "disponibles", "disponible", "vivero", "venta",
+    "cuales", "cuáles", "cuantas", "cuántas", "cuantos", "cuántos", "todo", "todos", "todas", "cosas",
+    "enseñame", "enséñame", "muestra", "ofrecen", "ofrece", "manejan", "comprar", "puedo", "aqui", "aquí",
+    "recomiendas", "recomienda", "recomiendan", "existencia", "existen", "hola", "tienes", "tenemos",
     "y", "o", "en", "a", "al", "es", "son", "quedan", "les", "se", "si", "sí", "tipo", "tipos",
     "manejan", "manejas", "dame", "dime", "favor", "porfa", "hola", "buenas", "grandes", "grande",
 }
+
+CATEGORIAS = ("planta", "maceta", "sustrato", "fertilizante")
+PLURALES = {"planta": "plantas", "maceta": "macetas", "sustrato": "sustratos", "fertilizante": "fertilizantes"}
+SINONIMOS = {"abono": "fertilizante", "tierra": "sustrato", "árbol": "frutal"}
 
 ENVIOS_NOMBRES = {"estandar": "estándar", "protegido": "protegido", "humedad": "humedad", "termico": "térmico"}
 
@@ -52,23 +59,51 @@ def terminos_busqueda(mensaje):
             palabra = palabra[:-2]
         elif palabra.endswith("s") and len(palabra) > 3:
             palabra = palabra[:-1]
+        palabra = SINONIMOS.get(palabra, palabra)
         if palabra not in terminos:
             terminos.append(palabra)
     return terminos
 
 
+def plantas_primero(productos):
+    return sorted(productos, key=lambda p: CATEGORIAS.index(p["categoria"]))
+
+
 def buscar_productos(mensaje, listar_productos):
+    """Devuelve (productos, categoria, por_nombre); las palabras de categoría filtran, no se buscan como texto."""
     terminos = terminos_busqueda(mensaje)
+    categorias = [t for t in terminos if t in CATEGORIAS]
+    categoria = categorias[0] if categorias else ""
+    terminos = [t for t in terminos if t not in CATEGORIAS]
     if not terminos:
-        return listar_productos("")[:MAX_PRODUCTOS]
+        return plantas_primero(listar_productos("", categoria)), categoria, False
+
     aciertos = {}
     productos = {}
     for termino in terminos:
-        for producto in listar_productos(termino):
+        for producto in listar_productos(termino, categoria):
             aciertos[producto["id"]] = aciertos.get(producto["id"], 0) + 1
             productos[producto["id"]] = producto
+    if not productos and categoria:
+        return plantas_primero(listar_productos("", categoria)), categoria, False
     orden = sorted(aciertos, key=lambda id_: (-aciertos[id_], productos[id_]["nombre"]))
-    return [productos[id_] for id_ in orden[:MAX_PRODUCTOS]]
+    return [productos[id_] for id_ in orden], categoria, True
+
+
+def texto_catalogo(productos, categoria, por_nombre):
+    total = len(productos)
+    if por_nombre:
+        texto = f"Encontré {total} producto(s) del catálogo."
+    elif categoria:
+        nombres = ", ".join(p["nombre"] for p in productos)
+        texto = f"Tenemos {total} {categoria if total == 1 else PLURALES[categoria]} en el catálogo: {nombres}."
+    else:
+        por_categoria = {c: sum(1 for p in productos if p["categoria"] == c) for c in CATEGORIAS}
+        conteo = ", ".join(f"{n} {c if n == 1 else PLURALES[c]}" for c, n in por_categoria.items() if n)
+        texto = f"Tenemos {total} productos en el catálogo: {conteo}. Pregúntame por una categoría o por un nombre."
+    if total > MAX_PRODUCTOS:
+        texto += f" Te muestro {MAX_PRODUCTOS} aquí; el resto está en el catálogo."
+    return texto
 
 
 def resumen_pedido(pedido):
@@ -192,10 +227,10 @@ def responder(mensaje, contexto, buscar_pedido, listar_productos, clasificador=N
     elif nombre in ("rastreo_folio", "explicar_recomendacion"):
         datos.update(responder_folio(nombre, mensaje, contexto, buscar_pedido))
     elif nombre == "buscar_producto":
-        productos = buscar_productos(mensaje, listar_productos)
+        productos, categoria, por_nombre = buscar_productos(mensaje, listar_productos)
         if productos:
-            datos["respuesta"] = f"Encontré {len(productos)} producto(s) del catálogo."
-            datos["productos"] = productos
+            datos["respuesta"] = texto_catalogo(productos, categoria, por_nombre)
+            datos["productos"] = productos[:MAX_PRODUCTOS]
         else:
             datos["respuesta"] = "No encontré productos con esa búsqueda. Prueba con otro nombre o revisa el catálogo."
     elif nombre == "recomendar_envio":

@@ -10,6 +10,7 @@ from django.test import TestCase
 from envios.asistente import asistente
 from envios.asistente.clasificador import ClasificadorIntenciones, Intencion, obtener_clasificador
 from envios.asistente.texto import extraer_folio, normalizar
+from envios.models import Producto
 from envios.tests.test_api import CARACTERISTICAS, CASO
 
 ENVIOS = ["estandar", "protegido", "humedad", "termico", "estándar", "térmico"]
@@ -40,8 +41,8 @@ def pedido_falso(corregido=True):
     }
 
 
-def producto_falso(id_, nombre):
-    return {"id": id_, "nombre": nombre, "categoria": "planta"}
+def producto_falso(id_, nombre, categoria="planta"):
+    return {"id": id_, "nombre": nombre, "categoria": categoria}
 
 
 class PruebasFolio(TestCaseSimple):
@@ -97,7 +98,10 @@ class PruebasResponder(TestCaseSimple):
         return asistente.responder(
             mensaje, contexto or {},
             buscar_pedido=lambda folio: pedido,
-            listar_productos=lambda texto: [p for p in productos if texto.lower() in p["nombre"].lower()],
+            listar_productos=lambda texto, categoria="": [
+                p for p in productos
+                if texto.lower() in p["nombre"].lower() and (not categoria or p["categoria"] == categoria)
+            ],
             clasificador=ClasificadorFalso(intencion, confianza),
         )
 
@@ -132,7 +136,7 @@ class PruebasResponder(TestCaseSimple):
         asistente.responder(
             "VIV-20261123-0002", {"ultimo_folio": "VIV-20261123-0001"},
             buscar_pedido=lambda folio: folios.append(folio),
-            listar_productos=lambda texto: [],
+            listar_productos=lambda texto, categoria="": [],
             clasificador=ClasificadorFalso("rastreo_folio"),
         )
         self.assertEqual(folios, ["VIV-20261123-0002"])
@@ -167,10 +171,37 @@ class PruebasResponder(TestCaseSimple):
         productos = [producto_falso(i, f"Planta {i}") for i in range(1, 10)]
         datos = asistente.responder(
             "muéstrame el catálogo", {}, buscar_pedido=lambda f: None,
-            listar_productos=lambda texto: productos,
+            listar_productos=lambda texto, categoria="": productos,
             clasificador=ClasificadorFalso("buscar_producto"),
         )
         self.assertEqual(len(datos["productos"]), 5)
+
+    def test_pregunta_general_de_plantas_lista_por_categoria(self):
+        productos = [producto_falso(1, "Aloe vera"), producto_falso(2, "Lavanda"),
+                     producto_falso(3, "Maceta de barro", "maceta")]
+        datos = self.responder("buscar_producto", "¿qué plantas hay en el vivero?", productos=productos)
+        self.assertIn("Tenemos 2 plantas", datos["respuesta"])
+        self.assertIn("Aloe vera, Lavanda", datos["respuesta"])
+        self.assertEqual([p["id"] for p in datos["productos"]], [1, 2])
+
+    def test_catalogo_general_cuenta_por_categoria(self):
+        productos = [producto_falso(1, "Aloe vera"), producto_falso(2, "Lavanda"),
+                     producto_falso(3, "Maceta de barro", "maceta")]
+        datos = self.responder("buscar_producto", "¿qué venden?", productos=productos)
+        self.assertIn("Tenemos 3 productos", datos["respuesta"])
+        self.assertIn("2 plantas, 1 maceta", datos["respuesta"])
+        self.assertEqual(datos["productos"][0]["categoria"], "planta")
+
+    def test_categoria_sin_coincidencia_de_nombre_lista_la_categoria(self):
+        productos = [producto_falso(1, "Fertilizante orgánico", "fertilizante")]
+        datos = self.responder("buscar_producto", "fertilizante para limonero", productos=productos)
+        self.assertIn("Tenemos 1 fertilizante", datos["respuesta"])
+
+    def test_terminos_de_busqueda_ignoran_palabras_vacias_y_usan_sinonimos(self):
+        self.assertEqual(asistente.terminos_busqueda("¿qué hay en el vivero?"), [])
+        self.assertEqual(asistente.terminos_busqueda("¿qué plantas hay en el vivero?"), ["planta"])
+        self.assertEqual(asistente.terminos_busqueda("¿qué abonos y tierras tienen?"), ["fertilizante", "sustrato"])
+        self.assertEqual(asistente.terminos_busqueda("¿tienen helechos?"), ["helecho"])
 
     def test_recomendar_envio_no_elige_un_envio(self):
         datos = self.responder("recomendar_envio", "¿cómo mando un cactus?")
@@ -268,6 +299,13 @@ class PruebasEndpoint(TestCase):
         datos = self.preguntar("¿tienen helechos?").json()
         self.assertEqual(datos["intencion"], "buscar_producto")
         self.assertEqual(datos["productos"][0]["nombre"], "Helecho de Boston")
+
+    def test_pregunta_general_de_plantas(self):
+        datos = self.preguntar("¿qué plantas hay en el vivero?").json()
+        self.assertEqual(datos["intencion"], "buscar_producto")
+        self.assertIn(f"Tenemos {Producto.objects.filter(categoria='planta').count()} plantas", datos["respuesta"])
+        self.assertEqual(len(datos["productos"]), 5)
+        self.assertTrue(all(p["categoria"] == "planta" for p in datos["productos"]))
 
     def test_recomendar_envio_remite_al_recomendador(self):
         datos = self.preguntar("¿qué envío me recomiendas para mandar un helecho?").json()

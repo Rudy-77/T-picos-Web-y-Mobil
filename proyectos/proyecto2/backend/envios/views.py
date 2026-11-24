@@ -98,8 +98,8 @@ def leer_mensaje(datos):
     return mensaje.strip(), contexto if isinstance(contexto, dict) else {}
 
 
-def listar_para_asistente(texto):
-    return [servicios.producto_a_dict(p) for p in ProductoRepositorio.listar(texto)]
+def listar_para_asistente(texto, categoria=""):
+    return [servicios.producto_a_dict(p) for p in ProductoRepositorio.listar(texto, categoria)]
 
 
 @csrf_exempt

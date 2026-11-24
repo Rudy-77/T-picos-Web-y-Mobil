@@ -1,43 +1,90 @@
-texto,intencion
-"buenas, ¿con quién hablo?",saludo
-"hola hola",saludo
-"muy buen día tengan",saludo
-"qué tal, vengo a preguntar algo",saludo
-"buenas tardes, disculpe",saludo
-"va, muchas gracias por todo",despedida_gracias
-"ya con eso, bye",despedida_gracias
-"agradecido",despedida_gracias
-"hasta la próxima",despedida_gracias
-"¿me dices en qué quedó la orden VIV-20261124-0002?",rastreo_folio
-"acabo de comprar y quiero ver el folio viv-20261124-0001",rastreo_folio
-"¿pueden checar mi compra con número VIV 20261124 0003?",rastreo_folio
-"¿hay noticias de mi paquete?",rastreo_folio
-"quisiera revisar lo que pedí",rastreo_folio
-"VIV-20261124-0009 por favor",rastreo_folio
-"¿qué hizo que mi pedido fuera en caja térmica?",explicar_recomendacion
-"no me queda claro por qué eligieron humedad para mis helechos",explicar_recomendacion
-"¿por qué razón el sistema prefirió protegido?",explicar_recomendacion
-"¿la recomendación de VIV-20261124-0004 la cambiaron las reglas?",explicar_recomendacion
-"¿de dónde salió que mi envío sea estándar?",explicar_recomendacion
-"¿manejan plantas tipo palma?",buscar_producto
-"necesito abono para mis plantas",buscar_producto
-"¿qué macetas hay?",buscar_producto
-"¿les queda lavanda?",buscar_producto
-"quiero algo verde para la oficina",buscar_producto
-"¿cuánto sale el pothos?",buscar_producto
-"tengo que mandar un aguacate a Oaxaca, ¿qué opción conviene?",recomendar_envio
-"¿qué envío le darías a una calathea que viaja 3 días?",recomendar_envio
-"¿me sugieres cómo mandar unas lechugas?",recomendar_envio
-"ayúdame a decidir el envío de un ficus grande",recomendar_envio
-"quiero enviar macetas con plantas a mi tía",recomendar_envio
-"¿en qué se distingue el térmico del estándar?",info_envios
-"¿qué trae el empaque de humedad?",info_envios
-"¿hasta qué temperatura sirve la caja protegida?",info_envios
-"¿cuál de sus envíos sale más económico?",info_envios
-"¿qué envíos ofrecen?",info_envios
-"¿quién canta esa canción?",no_se
-"¿cuánto es la raíz cuadrada de 81?",no_se
-"¿cómo estará el tráfico hoy?",no_se
-"¿me arreglas el wifi?",no_se
-"¿cuál es el mejor equipo de futbol?",no_se
-"explícame la teoría de la relatividad",no_se
+"texto","intencion"
+"buenas, ¿con quién hablo?","saludo"
+"hola hola","saludo"
+"muy buen día tengan","saludo"
+"qué tal, vengo a preguntar algo","saludo"
+"buenas tardes, disculpe","saludo"
+"va, muchas gracias por todo","despedida_gracias"
+"ya con eso, bye","despedida_gracias"
+"agradecido","despedida_gracias"
+"hasta la próxima","despedida_gracias"
+"¿me dices en qué quedó la orden VIV-20261124-0002?","rastreo_folio"
+"acabo de comprar y quiero ver el folio viv-20261124-0001","rastreo_folio"
+"¿pueden checar mi compra con número VIV 20261124 0003?","rastreo_folio"
+"¿hay noticias de mi paquete?","rastreo_folio"
+"quisiera revisar lo que pedí","rastreo_folio"
+"VIV-20261124-0009 por favor","rastreo_folio"
+"¿qué hizo que mi pedido fuera en caja térmica?","explicar_recomendacion"
+"no me queda claro por qué eligieron humedad para mis helechos","explicar_recomendacion"
+"¿por qué razón el sistema prefirió protegido?","explicar_recomendacion"
+"¿la recomendación de VIV-20261124-0004 la cambiaron las reglas?","explicar_recomendacion"
+"¿de dónde salió que mi envío sea estándar?","explicar_recomendacion"
+"¿manejan plantas tipo palma?","buscar_producto"
+"necesito abono para mis plantas","buscar_producto"
+"¿les queda lavanda?","buscar_producto"
+"quiero algo verde para la oficina","buscar_producto"
+"¿cuánto sale el pothos?","buscar_producto"
+"tengo que mandar un aguacate a Oaxaca, ¿qué opción conviene?","recomendar_envio"
+"¿qué envío le darías a una calathea que viaja 3 días?","recomendar_envio"
+"¿me sugieres cómo mandar unas lechugas?","recomendar_envio"
+"ayúdame a decidir el envío de un ficus grande","recomendar_envio"
+"quiero enviar macetas con plantas a mi tía","recomendar_envio"
+"¿en qué se distingue el térmico del estándar?","info_envios"
+"¿qué trae el empaque de humedad?","info_envios"
+"¿hasta qué temperatura sirve la caja protegida?","info_envios"
+"¿cuál de sus envíos sale más económico?","info_envios"
+"¿qué envíos ofrecen?","info_envios"
+"¿quién canta esa canción?","no_se"
+"¿cuánto es la raíz cuadrada de 81?","no_se"
+"¿cómo estará el tráfico hoy?","no_se"
+"¿me arreglas el wifi?","no_se"
+"¿cuál es el mejor equipo de futbol?","no_se"
+"explícame la teoría de la relatividad","no_se"
+"¿qué plantas venden en el vivero?","buscar_producto"
+"¿qué variedades de plantas tienen?","buscar_producto"
+"quiero conocer todo lo que tienen a la venta","buscar_producto"
+"enséñame qué macetas manejan","buscar_producto"
+"¿qué tipos de fertilizante hay?","buscar_producto"
+"¿les queda aloe?","buscar_producto"
+"¿qué planta me sirve para un lugar sin sol?","buscar_producto"
+"¿tienen tierra para plantas de interior?","buscar_producto"
+"quiero ver qué hortalizas tienen","buscar_producto"
+"hola, ¿qué plantas hay para comprar?","buscar_producto"
+"¿cómo está mi pedido VIV-20261126-0002?","rastreo_folio"
+"quisiera saber en qué quedó mi compra","rastreo_folio"
+"pásame el resumen del pedido viv-20261126-0003","rastreo_folio"
+"no veo mi pedido, ¿lo puedes buscar?","rastreo_folio"
+"¿qué tiene registrado el folio VIV 20261126 0004?","rastreo_folio"
+"¿por qué mi pedido VIV-20261126-0005 salió en caja térmica?","explicar_recomendacion"
+"explícame cómo decidieron mi envío","explicar_recomendacion"
+"¿qué pasó con el envío que quería el modelo?","explicar_recomendacion"
+"¿por qué la recomendación dice que fue corregida?","explicar_recomendacion"
+"no me explico por qué me tocó ese empaque","explicar_recomendacion"
+"¿qué envío debo usar para mandar un limonero a Puebla?","recomendar_envio"
+"necesito ayuda para escoger cómo enviar mis macetas","recomendar_envio"
+"¿cuánto saldría mandar plantas a Oaxaca?","recomendar_envio"
+"mándame la opción de envío que más me convenga","recomendar_envio"
+"quiero enviar una charola de jitomates, ¿cómo?","recomendar_envio"
+"¿qué características tiene el envío protegido?","info_envios"
+"¿el envío térmico sirve cuando hace calor?","info_envios"
+"¿cuál es el límite de días del envío estándar?","info_envios"
+"¿qué tan caro es el envío de humedad?","info_envios"
+"¿cómo se empaca en el envío de humedad?","info_envios"
+"buen día, ¿me puedes ayudar con unas dudas?","saludo"
+"hola, ¿cómo va todo?","saludo"
+"¿qué servicios me ofreces?","saludo"
+"muy buenas","saludo"
+"hola, soy cliente del vivero","saludo"
+"gracias por todo, nos vemos","despedida_gracias"
+"agradezco tu ayuda","despedida_gracias"
+"listo, con eso me despido","despedida_gracias"
+"de acuerdo, muchas gracias","despedida_gracias"
+"hasta pronto, gracias","despedida_gracias"
+"¿quién es el mejor jugador de la historia?","no_se"
+"¿qué temperatura hace hoy en Puebla?","no_se"
+"¿puedo pagar en abonos?","no_se"
+"mi cactus se está arrugando, ¿qué le pasa?","no_se"
+"cuéntame algo gracioso","no_se"
+"quiero cambiar mi pedido de fecha","no_se"
+"¿dónde puedo estacionarme en el vivero?","no_se"
+"zzzz","no_se"

@@ -17,7 +17,7 @@ El **Proyecto 2** (esta carpeta) continúa el Proyecto 1 y agrega un **asistente
 Un **árbol de decisión** (`.joblib`) propone el envío y unas **reglas del negocio** lo corrigen si propone algo que el vivero no puede ofrecer. Todo corre en un monolito **Django + SQLite**; la app **Flutter** solo consume JSON.
 
 Más documentación:
-- [ENTREGA.md](ENTREGA.md): caso en que las reglas corrigen al modelo, comparación con el ejemplo de clase, métricas y guion de capturas.
+- [ENTREGA.md](ENTREGA.md): nota del enfoque del asistente, métricas del modelo, pruebas reales del endpoint y capturas del chat.
 - [ANALISIS_PATRONES.md](ANALISIS_PATRONES.md): patrones de diseño en el backend y en la app.
 
 ## Estructura
@@ -30,8 +30,8 @@ proyecto2/
     entrenar_modelo.py      entrena el árbol y guarda el .joblib en el backend
     entrenar_asistente.py   entrena el clasificador de intenciones del asistente
     probar_asistente.py     prueba el modelo del asistente con frases nuevas
-    datos/asistente_intenciones.csv  500 frases (texto, intencion, nota)
-    datos/asistente_prueba.csv       42 frases nuevas solo para medir
+    datos/asistente_intenciones.csv  1 016 frases (texto, intencion, nota)
+    datos/asistente_prueba.csv       89 frases nuevas solo para medir
     datos/envios_vivero.csv 9 000 filas generadas
     ejemplos/caso_correccion.json  caso reproducible de corrección por reglas
   backend/                  proyecto Django (paquete vivero_api, app envios)
@@ -109,7 +109,7 @@ python manage.py runserver 127.0.0.1:8000
 
 `db.sqlite3` ya viene con las tablas y los 20 productos de prueba; `cargar_datos_prueba` se puede ejecutar varias veces sin duplicar. Para empezar de cero, borra `db.sqlite3` y repite los dos primeros comandos.
 
-Pruebas automáticas (63: las 28 del Proyecto 1 más 35 del asistente: folios, clasificador, respuestas por intención y endpoint):
+Pruebas automáticas (68: las 28 del Proyecto 1 más 40 del asistente: folios, clasificador, respuestas por intención y endpoint):
 
 ```bash
 python manage.py test
@@ -193,20 +193,20 @@ Un **clasificador de intenciones** que entrené yo (TF-IDF de palabras y de cara
 | `saludo`, `despedida_gracias` | responde y explica qué puede hacer |
 | `rastreo_folio` | busca el pedido (`servicios.buscar_pedido`) y devuelve un resumen; sin folio, lo pide |
 | `explicar_recomendacion` | explica con el `resultado` guardado en el pedido (qué prefería el modelo, qué regla lo descartó); no recalcula |
-| `buscar_producto` | consulta el catálogo (`ProductoRepositorio.listar`), hasta 5 productos |
+| `buscar_producto` | consulta el catálogo (`ProductoRepositorio.listar`) por nombre o por categoría («¿qué plantas hay?»): lista los nombres y muestra hasta 5 tarjetas |
 | `recomendar_envio` | no elige nada: remite al formulario / `POST /api/recomendar/` mediante `accion` |
 | `info_envios` | describe los tipos de envío con `tipos_envio.py` y los límites de `reglas.py` |
 | `no_se` | fuera de dominio, poco claro o confianza menor a **0.40** |
 
 ### Entrenar el asistente (fuera de Django)
 
-El dataset es `ml/datos/asistente_intenciones.csv` (500 frases escritas a mano, columnas `texto,intencion,nota`). Aparte hay `ml/datos/asistente_prueba.csv` con 42 frases nuevas que nunca se usan para entrenar. Desde `proyectos/proyecto2/`, con el entorno activado:
+El dataset es `ml/datos/asistente_intenciones.csv` (1 016 frases escritas a mano, columnas `texto,intencion,nota`). Aparte hay `ml/datos/asistente_prueba.csv` con 89 frases nuevas que nunca se usan para entrenar. Desde `proyectos/proyecto2/`, con el entorno activado:
 
 ```bash
 python ml/entrenar_asistente.py
 ```
 
-Imprime la exactitud y el `classification_report` de la partición 75/25 (`stratify`, `random_state=42`), la tabla de umbrales (validación cruzada), la exactitud en las 42 frases nuevas y guarda `backend/envios/modelo/modelo_asistente.joblib`. El modelo final se reentrena con las 500 frases. Para probar frases sueltas o las 42 frases nuevas:
+Imprime la exactitud y el `classification_report` de la partición 75/25 (`stratify`, `random_state=42`), la tabla de umbrales (validación cruzada), la exactitud en las 89 frases nuevas y guarda `backend/envios/modelo/modelo_asistente.joblib`. El modelo final se reentrena con todas las frases del corpus. Para probar frases sueltas o las 89 frases nuevas:
 
 ```bash
 python ml/probar_asistente.py "hola" "¿por qué me salió protegido?"
@@ -249,7 +249,7 @@ Los folios se reconocen en varias formas (`VIV-20261123-0001`, `viv 20261123 000
 - El folio se ordena como texto: funciona hasta 9 999 pedidos por día.
 - Si se pierde la respuesta de un `POST /api/pedidos/` y el usuario pulsa "Reintentar", podría registrarse un pedido duplicado (no hay llave de idempotencia).
 - Las fuentes (Barlow Condensed y Barlow, paquete `google_fonts` 8) se descargan de Google Fonts la primera vez que se abre la app; sin internet, la app usa la fuente del sistema y funciona igual. Las pruebas usan el tema con la fuente del sistema (`temaVivero(fuentesWeb: false)`) para no depender de la red.
-- El asistente se entrenó con 500 frases escritas por mí; lo que no se parezca a ellas puede clasificarse mal o caer en `no_se`. Las 42 frases de prueba también las escribí yo, por lo que su exactitud es optimista.
+- El asistente se entrenó con 1 016 frases escritas por mí; lo que no se parezca a ellas puede clasificarse mal o caer en `no_se`. Las 89 frases de prueba también las escribí yo, por lo que su exactitud es optimista.
 - La búsqueda de productos usa `icontains` de SQLite, que no ignora acentos: «citricos» sin acento no encuentra «Cítrico injertado».
 - El sistema guarda pedidos pero no tiene seguimiento de paquetería: «rastreo» devuelve lo registrado, no la ubicación de un paquete.
 - Los folios son consecutivos (adivinables) y `GET /api/pedidos/<folio>/` devuelve el pedido completo, incluidas las entradas. El asistente muestra solo un resumen, pero eso no es control de acceso. Es una limitación heredada del Proyecto 1 que no se corrigió.
