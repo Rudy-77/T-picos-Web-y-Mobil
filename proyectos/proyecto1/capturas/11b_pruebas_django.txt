@@ -1,0 +1,10 @@
+$ python manage.py test
+Found 28 test(s).
+Creating test database for alias 'default'...
+System check identified no issues (0 silenced).
+............................
+----------------------------------------------------------------------
+Ran 28 tests in 0.518s
+
+OK
+Destroying test database for alias 'default'...
